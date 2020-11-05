@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import axios from 'axios';
 import './Game.css';
 import Board from './Board'
@@ -22,8 +22,7 @@ const Game = () => {
     
   };
   
-  let deckInfo = deckCall();
-
+  
   // Get cards.
   let cardCall = async (id) => {
     try {
@@ -34,8 +33,11 @@ const Game = () => {
       console.log({msg: `Failed to get cards from deck ${deckInfo.deck_id}`, error: e});
     };
   }
-
-  const cards = cardCall(deckInfo.deck_id);
+  
+  useEffect(() => {
+    let deckInfo = deckCall();
+    const cards = cardCall(deckInfo.deck_id);
+  });
 
   return (
     <section className="game-base">
